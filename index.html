@@ -788,41 +788,41 @@
         </div>
     </section>
 
-	<script>
-    	const contactForm = document.getElementById('contactForm');
-    	const formStatus = document.getElementById('formStatus');
+<script>
+  const contactForm = document.getElementById('contactForm');
+  const formStatus = document.getElementById('formStatus');
 
-    	contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        formStatus.textContent = 'Sending...';
-        formStatus.classList.remove('text-green-600', 'text-red-600');
-        
-        // Convert FormData to a simple object
-        const formData = {};
-        new FormData(e.target).forEach((value, key) => {
-            formData[key] = value;
-        });
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    formStatus.textContent = 'Sending...';
+    formStatus.classList.remove('text-green-600', 'text-red-600');
 
-        google.script.run
-            .withSuccessHandler(function(response) {
-                if (response.success) {
-                    formStatus.textContent = 'Message sent successfully!';
-                    formStatus.classList.add('text-green-600');
-                    contactForm.reset();
-                } else {
-                    formStatus.textContent = 'Failed to send message. Please try again.';
-                    formStatus.classList.add('text-red-600');
-                    console.error("Error from script: ", response.error);
-                }
-            })
-            .withFailureHandler(function(error) {
-                formStatus.textContent = 'An error occurred. Please try again later.';
-                formStatus.classList.add('text-red-600');
-                console.error("Script failure: ", error);
-            })
-            .processForm(formData);
-	    });
-	</script>
+    const formData = new FormData(e.target);
+
+    // Use fetch() to send data to the Google Apps Script web app
+    fetch('https://swapnilbhaye.github.io/portfolio', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        formStatus.textContent = 'Message sent successfully!';
+        formStatus.classList.add('text-green-600');
+        contactForm.reset();
+      } else {
+        formStatus.textContent = 'Failed to send message. Please try again.';
+        formStatus.classList.add('text-red-600');
+        console.error("Error from script: ", data.error);
+      }
+    })
+    .catch(error => {
+      formStatus.textContent = 'An error occurred. Please try again later.';
+      formStatus.classList.add('text-red-600');
+      console.error("Network or fetch error: ", error);
+    });
+  });
+</script>
 
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-12">
