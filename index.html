@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swapnil Bhaye | Electronics Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.globe.min.js"></script>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        .dark {
+            --primary: #818cf8;
+            --secondary: #a78bfa;
+            --dark: #f8fafc;
+            --light: #1e293b;
+        }
+        
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background-color: var(--light);
+            color: var(--dark);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .vanta-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        
+        .floating-2 {
+            animation: floating-2 8s ease-in-out infinite;
+        }
+        
+        @keyframes floating-2 {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(-5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        
+        .progress-sphere {
+            width: 120px;
+            height: 120px;
+            position: relative;
+            perspective: 1000px;
+        }
+        
+        .sphere-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate 15s infinite linear;
+        }
+        
+        .sphere-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+        
+        .timeline-badge {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translateZ(30px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-badge:hover {
+            transform: translateZ(50px) scale(1.1);
+        }
+        
+        .project-card {
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            transition: all 0.5s ease;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .project-card:hover {
+            transform: perspective(1000px) rotateY(10deg) translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+        }
+        
+        .trophy {
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateX(15deg);
+            transition: all 0.3s ease;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .trophy:hover {
+            transform: perspective(1000px) rotateX(0deg) translateY(-10px);
+        }
+        
+        .contact-input {
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateX(0deg);
+        }
+        
+        .contact-input:focus {
+            transform: perspective(1000px) rotateX(5deg);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .social-icon {
+            transition: all 0.3s ease;
+            transform: perspective(1000px) rotateY(0deg) translateZ(0px);
+        }
+        
+        .social-icon:hover {
+            transform: perspective(1000px) rotateY(20deg) translateZ(10px);
+        }
+    </style>
+</head>
+<body class="relative">
+    <!-- Vanta.js Background -->
+    <div id="vanta-bg" class="vanta-bg"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white bg-opacity-90 backdrop-blur-md shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a class="text-xl font-bold text-indigo-600 flex items-center">
+                        <span class="mr-2">SWAPNIL</span>
+                        <span class="bg-indigo-600 text-white px-2 py-1 rounded-md">BHAYE</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#home" class="nav-link text-gray-700 hover:text-indigo-600">Home</a>
+                    <a href="#about" class="nav-link text-gray-700 hover:text-indigo-600">About</a>
+                    <a href="#skills" class="nav-link text-gray-700 hover:text-indigo-600">Skills</a>
+                    <a href="#education" class="nav-link text-gray-700 hover:text-indigo-600">Education</a>
+                    <a href="#experience" class="nav-link text-gray-700 hover:text-indigo-600">Experience</a>
+                    <a href="#projects" class="nav-link text-gray-700 hover:text-indigo-600">Projects</a>
+                    <a href="#contact" class="nav-link text-gray-700 hover:text-indigo-600">Contact</a>
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300">
+                        <i data-feather="moon" class="w-6 h-6 text-gray-800 dark:text-gray-200"></i>
+                    </button>   
+                </div>
+                <div class="md:hidden flex items-center space-x-4">
+                    <button id="menu-btn" class="text-gray-700">
+                        <i data-feather="menu"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden fixed inset-0 bg-white z-40 pt-20 px-4">
+        <div class="flex flex-col space-y-6 text-center">
+            <a href="#home" class="text-xl text-gray-700 hover:text-indigo-600">Home</a>
+            <a href="#about" class="text-xl text-gray-700 hover:text-indigo-600">About</a>
+            <a href="#skills" class="text-xl text-gray-700 hover:text-indigo-600">Skills</a>
+            <a href="#education" class="text-xl text-gray-700 hover:text-indigo-600">Education</a>
+            <a href="#experience" class="text-xl text-gray-700 hover:text-indigo-600">Experience</a>
+            <a href="#projects" class="text-xl text-gray-700 hover:text-indigo-600">Projects</a>
+            <a href="#contact" class="text-xl text-gray-700 hover:text-indigo-600">Contact</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0" data-aos="fade-right">
+                    <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-6">
+                        Hi, I'm <span class="text-indigo-600">Swapnil</span>
+                    </h1>
+                    <h2 class="text-2xl md:text-3xl font-semibold text-gray-700 mb-6">
+			<p>I am <span class="typing-text" style="color:#ff0000;"></span></p>
+                    </h2>
+		    
+                    <p class="text-lg text-gray-600 mb-8 max-w-lg">
+                        Be a living electronic circuit. Practice resistance where needed, like a resistor. Preserve energy where needed, like a capacitor.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#contact" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300 transform hover:scale-105">
+                            Contact Me
+                        </a>
+                        <a href="#projects" class="border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50 px-6 py-3 rounded-lg font-medium transition duration-300 transform hover:scale-105">
+                            View Work
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center" data-aos="fade-left">
+                    <div class="relative">
+                        <div class="w-64 h-64 md:w-80 md:h-80 bg-indigo-100 rounded-full absolute -z-10 top-10 left-10 opacity-70"></div>
+                        <div class="w-64 h-64 md:w-80 md:h-80 bg-indigo-600 rounded-full absolute -z-10 -bottom-10 -right-10 opacity-20"></div>
+                        <img src="https://raw.githubusercontent.com/swapnilbhaye/Photos/refs/heads/main/logo.jpg" alt="Developer" class="w-64 h-64 md:w-80 md:h-80 object-cover rounded-full border-8 border-white shadow-2xl floating">
+                        <div class="absolute -bottom-5 -right-5 bg-white p-3 rounded-full shadow-lg floating-2">
+                            <div class="bg-indigo-600 text-white p-3 rounded-full">
+                                <i data-feather="activity" class="w-6 h-6"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">About <span class="text-indigo-600">Me</span></h2>
+                <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+            </div>
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/3 mb-10 md:mb-0 flex justify-center" data-aos="fade-right">
+                    <div class="relative">
+                        <div class="w-64 h-64 bg-indigo-100 rounded-2xl absolute -z-10 -top-5 -left-5 transform rotate-12"></div>
+                        <img src="https://raw.githubusercontent.com/swapnilbhaye/Photos/refs/heads/main/dp.jpg" alt="About" class="w-64 h-64 object-cover rounded-2xl shadow-xl floating">
+                    </div>
+                </div>
+                <div class="md:w-2/3 md:pl-16" data-aos="fade-left">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">Who am I?</h3>
+                    <p class="text-gray-600 mb-6">
+                       A highly qualified Electronics Engineer with a strong background in machine maintenance, troubleshooting, and reverse engineering.. My experience spans various roles, including my current position as an Aircraft Technician - Electrical at AI Engineering Services Limited. I have a Bachelor of Engineering in Electronics Engineering from Shah And Anchor Kutchhi Engineering College and a Diploma in Industrial Electronics. My professional journey includes valuable experience as a Plant Technician and Scientific Assistant. My skills and certifications highlight my expertise in diverse areas, from PCB Designing and Autocad Electrical to Windows and Linux operating systems. I am a Defronix Certified Junior Security Professional, and I have received an Appreciation Letter from NASA. Overall, you are a versatile professional with a passion for problem-solving and a dedication to continuous learning.
+                    </p>
+                    <p class="text-gray-600 mb-6">
+                        Be a living electronic circuit. Practice resistance where needed, like a resistor. Preserve energy where needed, like a capacitor.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="flex items-center">
+                            <div class="bg-indigo-100 p-2 rounded-full mr-3">
+                                <i data-feather="user" class="w-5 h-5 text-indigo-600"></i>
+                            </div>
+                            <span class="text-gray-700">Swapnil Bhaye</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-indigo-100 p-2 rounded-full mr-3">
+                                <i data-feather="mail" class="w-5 h-5 text-indigo-600"></i>
+                            </div>
+                            <span class="text-gray-700">swapnilbhay75@gmail.com</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-indigo-100 p-2 rounded-full mr-3">
+                                <i data-feather="phone" class="w-5 h-5 text-indigo-600"></i>
+                            </div>
+                            <span class="text-gray-700">+91 9892810088</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-indigo-100 p-2 rounded-full mr-3">
+                                <i data-feather="map-pin" class="w-5 h-5 text-indigo-600"></i>
+                            </div>
+                            <span class="text-gray-700">Mumbai, India</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1h7jaOGv-Dh4zhXj7UUxtO6I9oygO3yk7/view" class="inline-flex items-center text-indigo-600 font-medium" target="_blank">
+                        Download CV
+                        <i data-feather="download" class="ml-2 w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">My <span class="text-indigo-600">Skills</span></h2>
+                <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in">
+                    <div class="bg-indigo-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <img src="https://img.icons8.com/?size=80&id=K8Ttz87NEjvn&format=png">
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Photoshop</h3>
+                </div>
+                <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="bg-indigo-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <img src="https://img.icons8.com/fluency/96/code.png">
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Reverse Engineering</h3>
+                </div>
+                <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="bg-indigo-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <img src="https://img.icons8.com/color/96/microsoft-office-2019.png">
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Microsoft Office</h3>
+                </div>
+                <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="bg-indigo-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <img src="https://img.icons8.com/color/96/autocad.png">
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Autocad Electrical</h3>	
+                </div> 
+		<div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in">
+                    <div class="bg-indigo-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <img src="https://img.icons8.com/?size=64&id=hXQVOG_zPMn1&format=png">
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">PCB Designing</h3>
+                </div>
+                <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="bg-indigo-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <img src="https://img.icons8.com/color/96/windows-10.png">
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Windows OS</h3>
+                </div>
+                <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="bg-indigo-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <img src="https://img.icons8.com/color/96/linux.png">
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Linux OS</h3>
+                </div>
+                <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="bg-indigo-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <img src="https://img.icons8.com/?size=100&id=108781&format=png">
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">After Effects</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">My <span class="text-indigo-600">Education</span></h2>
+                <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+            </div>
+            <div class="relative">
+                <div class="absolute h-full w-1 bg-indigo-100 left-1/2 transform -translate-x-1/2"></div>
+                <div class="space-y-8">
+                    <div class="flex flex-col md:flex-row items-center" data-aos="fade-right">
+                        <div class="md:w-1/2 md:pr-8 mb-6 md:mb-0 flex justify-end">
+                            <div class="text-right">
+                                <h3 class="text-xl font-semibold text-gray-800">Bachelor of Engineering | Electronics Engineering</h3>
+                                <p class="text-indigo-600 mb-2">Shah And Anchor Kutchhi Engineering College, Chembur | 2014 - 2017</p>
+                                <p class="text-gray-600">Mumbai University (MU)</p>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2 md:pl-8 flex justify-center">
+                            <div class="timeline-badge bg-indigo-600 text-white">
+                                <i data-feather="award" class="w-6 h-6"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col md:flex-row items-center" data-aos="fade-left">
+                        <div class="md:w-1/2 md:pr-8 mb-6 md:mb-0 flex justify-end">
+                            <div class="text-right">
+                                <h3 class="text-xl font-semibold text-gray-800">Diploma | Industrial Electronics</h3>
+                                <p class="text-indigo-600 mb-2">Vidya Prasarak Mandal's Polytechnic, Thane | 2011 - 2014</p>
+                                <p class="text-gray-600">Maharashtra State Board of Technical Education (MSBTE)</p>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2 md:pl-8 flex justify-center">
+                            <div class="timeline-badge bg-indigo-600 text-white">
+                                <i data-feather="pen-tool" class="w-6 h-6"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col md:flex-row items-center" data-aos="fade-right">
+                        <div class="md:w-1/2 md:pr-8 mb-6 md:mb-0 flex justify-end">
+                            <div class="text-right">
+                                <h3 class="text-xl font-semibold text-gray-800">S.S.C | General Education</h3>
+                                <p class="text-indigo-600 mb-2">Nutan Vidya Mandir, Mankhurd | 2001 - 2011</p>
+                                <p class="text-gray-600">Maharashtra State Board of Secondary Education (MSBSE)</p>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2 md:pl-8 flex justify-center">
+                            <div class="timeline-badge bg-indigo-600 text-white">
+                                <i data-feather="book-open" class="w-6 h-6"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Work <span class="text-indigo-600">Experience</span></h2>
+                <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2" data-aos="zoom-in">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-indigo-100 p-3 rounded-lg mr-4">
+                            <i data-feather="briefcase" class="w-6 h-6 text-indigo-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800">Aircraft Technician - Electrical</h3>
+                            <p class="text-indigo-600">AI Engineering Services Limited | 2024 - Present</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        Woreked In Team to Minimize the Down Time of Any Project
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">Machine Maintainance</span>
+                        <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">Machine Troubleshooting</span>
+                        <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">CNC , Lathe Machines</span>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-indigo-100 p-3 rounded-lg mr-4">
+                            <i data-feather="briefcase" class="w-6 h-6 text-indigo-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800">Plant Technician</h3>
+                            <p class="text-indigo-600">Shree Consultancy Services | 2020 - 2024</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        Woreked In Team to Minimize the Down Time of Any Project
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">Machine Maintainance</span>
+                        <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">Machine Troubleshooting</span>
+                        <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">CNC , Lathe Machines</span>
+                    </div>
+                </div>
+               <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2" data-aos="zoom-in">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-indigo-100 p-3 rounded-lg mr-4">
+                            <i data-feather="briefcase" class="w-6 h-6 text-indigo-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800">Scientific Assistant</h3>
+                            <p class="text-indigo-600">Electronics Corporation of India Limited | 2019 - 2020</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        Maintainance, Installation of Radiological Detection System, Calibration of Isotope Identifiers
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">Maintenance</span>
+                        <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">Troubleshooting</span>
+                        <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">Installation</span>
+			<span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">Radiological</span>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-indigo-100 p-3 rounded-lg mr-4">
+                            <i data-feather="briefcase" class="w-6 h-6 text-indigo-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800">System Engineer</h3>
+                            <p class="text-indigo-600">Enceplon Pvt. Ltd. | 2017 - 2018</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                       Leading a Team of South Regional Viewing Center Head for Maintainance & Breakdowns 
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">Workstations</span>
+                        <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">Videowall</span>
+                        <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">Access Control System</span>
+			<span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">All Camera Reports</span>
+                    </div>
+                 </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Academic <span class="text-indigo-600">Projects</span></h2>
+                <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="project-card bg-white rounded-xl overflow-hidden" data-aos="flip-left">
+                    <div class="h-48 overflow-hidden">
+                        <img src="http://static.photos/technology/640x360/3" alt="Project 1" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Wireless Notice Board</h3>
+                        <p class="text-gray-600 mb-4">
+                            Displays Digital Notices from Anywhere via GSM Module & Raspbeery Pi.  
+                        </p>
+			<div class="flex justify-between items-center">
+                            <a class="text-indigo-600 font-medium flex items-center"> 
+                                <i data-feather="" class="ml-2 w-4 h-4"></i>
+                            </a>
+                            <div class="flex space-x-2">
+                                <span class="bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full text-xs">Raspberry Pi</span>
+                                <span class="bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full text-xs">GSM Module</span>
+				<span class="bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full text-xs">PHP, SQL, HTML</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card bg-white rounded-xl overflow-hidden" data-aos="flip-left" data-aos-delay="100">
+                    <div class="h-48 overflow-hidden">
+                        <img src="http://static.photos/technology/640x360/4" alt="Project 2" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Smart Home</h3>
+                        <p class="text-gray-600 mb-4">
+                            Home Appliances Make On Off Using Zigbee & Visual Baisc Application.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <a class="text-indigo-600 font-medium flex items-center">
+                                <i data-feather="" class="ml-2 w-4 h-4"></i>
+                            </a>
+                            <div class="flex space-x-2">
+                                <span class="bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full text-xs">Visual Basic 6.0</span>
+                                <span class="bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full text-xs">Zigbee</span>
+				<span class="bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full text-xs">Embedded C</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card bg-white rounded-xl overflow-hidden" data-aos="flip-left" data-aos-delay="200">
+                    <div class="h-48 overflow-hidden">
+                        <img src="http://static.photos/technology/640x360/5" alt="Project 3" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Light Sensitive Trigger</h3>
+                        <p class="text-gray-600 mb-4">
+                            Control of outdoor lights, garden lights, or nightlights using LDR.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <a class="text-indigo-600 font-medium flex items-center">
+                                <i data-feather="" class="ml-2 w-4 h-4"></i>
+                            </a>
+                            <div class="flex space-x-2">
+                                <span class="bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full text-xs">Light Deoendent Resistor</span>
+                                <span class="bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full text-xs">555 Timer IC</span>
+				<span class="bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full text-xs">Security</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section id="certificates" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Certificates & <span class="text-indigo-600">Awards</span></h2>
+                <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in">
+                    <div class="bg-indigo-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i data-feather="star" class="w-10 h-10 text-indigo-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Diploma In PC Maintainance</h3>
+                    <p class="text-gray-600 text-sm">INOX Computer, 2011</p>
+                </div>
+                <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="bg-indigo-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i data-feather="star" class="w-10 h-10 text-indigo-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">State Level Technical Quiz Competition</h3>
+                    <p class="text-gray-600 text-sm">Technocratz, 2013</p>
+                </div>
+                <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="bg-indigo-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i data-feather="star" class="w-10 h-10 text-indigo-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">JAVA Training Spoken Tutorial</h3>
+                    <p class="text-gray-600 text-sm">IIT Bombay, 2016</p>
+                </div>
+                <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="bg-indigo-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i data-feather="star" class="w-10 h-10 text-indigo-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">C Training Spoken Tutorial</h3>
+                    <p class="text-gray-600 text-sm">IIT Bombay, 2016</p>	
+                </div> 
+		<div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in">
+                    <div class="bg-indigo-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i data-feather="star" class="w-10 h-10 text-indigo-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Skill Knowledge Enhancement Program</h3>
+                    <p class="text-gray-600 text-sm">SAKEC, 2016</p>
+                </div>
+                <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="bg-indigo-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i data-feather="star" class="w-10 h-10 text-indigo-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Web Penetration Testing Webinar</h3>
+                    <p class="text-gray-600 text-sm">GCS Council, 2022</p>
+                </div>
+                <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="bg-indigo-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i data-feather="star" class="w-10 h-10 text-indigo-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Defronix Certified Junior Security Professional</h3>
+                    <p class="text-gray-600 text-sm">Defronix Cyber Security, 2022</p>
+                </div>
+                <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="bg-indigo-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i data-feather="star" class="w-10 h-10 text-indigo-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">TVAS Best Practices in Distribution O&M</h3>
+                    <p class="text-gray-600 text-sm">TPSDI Tata Power, 2023</p>	
+                </div>
+		<div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in">
+                    <div class="bg-indigo-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i data-feather="award" class="w-10 h-10 text-indigo-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Appreciation Letter</h3>
+                    <p class="text-gray-600 text-sm">AIESL, 13th May 2022</p>
+                </div>
+                <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="bg-indigo-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i data-feather="award" class="w-10 h-10 text-indigo-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Appreciation Letter</h3>
+                    <p class="text-gray-600 text-sm">NASA, 14th April 2025</p>
+                </div>
+                <div class="trophy bg-white p-6 rounded-xl text-center" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="bg-indigo-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i data-feather="award" class="w-10 h-10 text-indigo-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Appreciation Letter</h3>
+                    <p class="text-gray-600 text-sm">NASA, 13th August 2025</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Get In <span class="text-indigo-600">Touch</span></h2>
+                <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+            </div>
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-8" data-aos="fade-right">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">Contact Information</h3>
+                    <p class="text-gray-600 mb-8">
+                        Feel free to reach out to me for collaborations, job opportunities, or just to say hello!
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="bg-indigo-100 p-3 rounded-lg mr-4">
+                                <i data-feather="mail" class="w-5 h-5 text-indigo-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-800">Email</h4>
+                                <p class="text-gray-600">swapnilbhaye75@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-indigo-100 p-3 rounded-lg mr-4">
+                                <i data-feather="phone" class="w-5 h-5 text-indigo-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-800">Phone</h4>
+                                <p class="text-gray-600">+91 9892810088</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-indigo-100 p-3 rounded-lg mr-4">
+                                <i data-feather="map-pin" class="w-5 h-5 text-indigo-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-800">Location</h4>
+                                <p class="text-gray-600">Mumbai, India</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8">
+                        <h4 class="font-medium text-gray-800 mb-4">Follow Me</h4>
+                        <div class="flex space-x-4">
+                            <a href="https://www.linkedin.com/in/swapnil-bhaye" class="social-icon bg-indigo-100 text-indigo-600 p-3 rounded-full" target="_blank">
+                                <i data-feather="linkedin" class="w-5 h-5"></i>
+                            </a>
+                            <a href="https://github.com/swapnilbhaye" class="social-icon bg-indigo-100 text-indigo-600 p-3 rounded-full" target="_blank">
+                                <i data-feather="github" class="w-5 h-5"></i>
+                            </a>
+                            <a href="mailto:swapnilbhaye75@gmail.com" class="social-icon bg-indigo-100 text-indigo-600 p-3 rounded-full">
+                                <i data-feather="mail" class="w-5 h-5"></i>
+                            </a>
+                            <a href="https://www.youtube.com/channel/UC4jnn2AqE6b9UPeKUZbbLLw" class="social-icon bg-indigo-100 text-indigo-600 p-3 rounded-full" target="_blank">
+                                <i data-feather="youtube" class="w-5 h-5"></i>
+                            </a>
+			    <a href="https://www.facebook.com/swapnil.bhaye" class="social-icon bg-indigo-100 text-indigo-600 p-3 rounded-full" target="_blank">
+                                <i data-feather="facebook" class="w-5 h-5"></i>
+                            </a>
+			    <a href="https://wa.me/9892810088?text=Swapnil%20Bhaye" class="social-icon bg-indigo-100 text-indigo-600 p-3 rounded-full" target="_blank">
+                                <i data-feather="message-circle" class="w-5 h-5"></i>
+                            </a>
+			    <a href="https://t.me/ConfuserExCore" class="social-icon bg-indigo-100 text-indigo-600 p-3 rounded-full" target="_blank">
+                                <i data-feather="send" class="w-5 h-5"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 md:pl-8" data-aos="fade-left">
+  	 <form id="contactForm" class="max-w-xl mx-auto p-8 bg-white dark:bg-gray-900 shadow-md rounded-lg">
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700 dark:text-gray-200 mb-2">Name</label>
+                <input type="text" id="name" name="name" class="w-full px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-white" required>
+            </div>
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700 dark:text-gray-200 mb-2">Email</label>
+                <input type="email" id="email" name="email" class="w-full px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-white" required>
+            </div>
+            <div class="mb-4">
+                <label for="message" class="block text-gray-700 dark:text-gray-200 mb-2">Message</label>
+                <textarea id="message" name="message" rows="4" class="w-full px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-white" required></textarea>
+            </div>
+            <button type="submit" class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300">Send Message</button>
+            <div id="formStatus" class="mt-4 text-center text-sm font-semibold"></div>
+        </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+	<script>
+    	const contactForm = document.getElementById('contactForm');
+    	const formStatus = document.getElementById('formStatus');
+
+    	contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        formStatus.textContent = 'Sending...';
+        formStatus.classList.remove('text-green-600', 'text-red-600');
+        
+        // Convert FormData to a simple object
+        const formData = {};
+        new FormData(e.target).forEach((value, key) => {
+            formData[key] = value;
+        });
+
+        google.script.run
+            .withSuccessHandler(function(response) {
+                if (response.success) {
+                    formStatus.textContent = 'Message sent successfully!';
+                    formStatus.classList.add('text-green-600');
+                    contactForm.reset();
+                } else {
+                    formStatus.textContent = 'Failed to send message. Please try again.';
+                    formStatus.classList.add('text-red-600');
+                    console.error("Error from script: ", response.error);
+                }
+            })
+            .withFailureHandler(function(error) {
+                formStatus.textContent = 'An error occurred. Please try again later.';
+                formStatus.classList.add('text-red-600');
+                console.error("Script failure: ", error);
+            })
+            .processForm(formData);
+	    });
+	</script>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a class="text-xl font-bold text-white flex items-center">
+                        <span class="mr-2">SWAPNIL</span>
+                        <span class="bg-indigo-600 text-white px-2 py-1 rounded-md">BHAYE</span>
+                    </a>
+                    <p class="text-gray-400 mt-4">Creating immersive digital experiences.</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="https://www.linkedin.com/in/swapnil-bhaye" class="text-gray-400 hover:text-white transition duration-300" target="_blank">
+                        <i data-feather="linkedin" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://github.com/swapnilbhaye" class="text-gray-400 hover:text-white transition duration-300" target="_blank">
+                        <i data-feather="github" class="w-5 h-5"></i>
+                    </a>
+                    <a href="mailto:swapnilbhaye75@gmail.com" class="text-gray-400 hover:text-white transition duration-300" target="_blank">
+                        <i data-feather="mail" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://www.youtube.com/channel/UC4jnn2AqE6b9UPeKUZbbLLw" class="text-gray-400 hover:text-white transition duration-300" target="_blank">
+                        <i data-feather="youtube" class="w-5 h-5"></i>
+                    </a>
+		     <a href="https://www.facebook.com/swapnil.bhaye" class="text-gray-400 hover:text-white transition duration-300" target="_blank">
+                        <i data-feather="facebook" class="w-5 h-5"></i>
+                    </a>
+		     <a href="https://wa.me/9892810088?text=Swapnil%20Bhaye" class="text-gray-400 hover:text-white transition duration-300" target="_blank">
+                        <i data-feather="message-circle" class="w-5 h-5"></i>
+                    </a>
+		     <a href="https://t.me/ConfuserExCore" class="text-gray-400 hover:text-white transition duration-300" target="_blank">
+                        <i data-feather="send" class="w-5 h-5"></i>
+                    </a>	
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2025 Designed with 🚀 Swapnil Bhaye</p>
+            </div>
+        </div>
+    </footer>
+
+
+        <!-- JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.5/typed.min.js"></script>
+	<script>
+  	new Typed(".typing-text", {
+    	strings: ["Electronics Engineer", "Reverse Engineering Enthusiast", "Bug Hunter", "Defronix Certified Junior Security Professional", "Machine Maintenance Professional", "CNC Machine Troubleshooter", "@NASA Hall Of Fame"],
+    	typeSpeed: 80,
+    	backSpeed: 50,
+    	loop: true
+  	});
+	</script>
+
+    <!-- Back to Top Button -->
+    <a href="#" id="back-to-top" class="fixed bottom-8 right-8 bg-indigo-600 text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300">
+        <i data-feather="arrow-up" class="w-5 h-5"></i>
+    </a>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Initialize Vanta.js
+        VANTA.GLOBE({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x6366f1,
+            backgroundColor: 0xf8fafc,
+            size: 0.8
+        }); 
+
+        // Initialize Feather Icons
+        feather.replace();
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            if (mobileMenu.classList.contains('hidden')) {
+                feather.replace();
+            } else {
+                feather.replace();
+            }
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Back to Top Button
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+
+       
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('theme-toggle');
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    const currentTheme = localStorage.getItem('theme');
+
+    if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
+        document.documentElement.classList.add('dark');
+    }
+
+    themeToggle.addEventListener('click', () => {
+        const html = document.documentElement;
+        html.classList.toggle('dark');
+        const isDark = html.classList.contains('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        feather.replace();
+    });
+
+
+        themeToggle.addEventListener('click', () => {
+            const html = document.documentElement;
+            html.classList.toggle('dark');
+            const isDark = html.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            feather.replace();
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
