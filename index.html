@@ -807,17 +807,20 @@
             statusEl.textContent = "✅ Message sent successfully!";
 			statusEl.style.color = "white";
             statusEl.className = "success";
+			statusEl.className = "success text-white text-center";
             form.reset();
           } else {
             statusEl.textContent = "❌ Error: " + (result.error || "Something went wrong.");
 			statusEl.style.color = "white";
             statusEl.className = "error";
+			statusEl.className = "error text-white text-center";
           }
         } catch (err) {
           console.error("Fetch error:", err);
           statusEl.textContent = "⚠️ Network error, please try again later.";
 		  statusEl.style.color = "white";
           statusEl.className = "error";
+		  statusEl.className = "error text-white text-center";
         }
       });
     });
@@ -986,6 +989,7 @@
     </script>
 </body>
 </html>
+
 
 
 
