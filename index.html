@@ -15,6 +15,171 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.birds.min.js"></script>
     <style>
+
+		 body {
+            background-color: #1a1a2e; /* Deep space color */
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* NEW: Make the preloader element a fixed, full-screen overlay */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #1a1a2e; /* Re-apply background color here */
+            z-index: 9999; /* Ensure it is on top of all other content */
+            
+            /* Re-apply centering for the preloader content */
+            display: flex; 
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            transition: opacity 0.5s ease-out;
+        }
+
+        /* Processor Chip Styling */
+        .microprocessor {
+            position: relative;
+            width: 150px; 
+            height: 150px;
+            background-color: #2b3a4e; /* Dark metal body */
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5), 0 0 30px rgba(0, 191, 255, 0.3); /* Cyan/Blue Glow */
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+            /* Added margin to ensure pins are visible */
+            margin: 50px; 
+            z-index: 10;
+        }
+
+        /* Inner CPU Core for depth */
+        .cpu-core {
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            background-color: #1a1a2e; /* Darker center */
+            border-radius: 4px;
+            border: 1px solid #00ffff50;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 15;
+        }
+
+        .microprocessor::before {
+            content: 'CPU';
+            color: #00ffff;
+            font-size: 20px;
+            font-weight: bold;
+            text-shadow: 0 0 5px #00ffff;
+            opacity: 0.8;
+            z-index: 20;
+        }
+        
+        /* --- Pin Signal Animation --- */
+        @keyframes pin-signal {
+            0%, 100% { 
+                background-color: #94a3b8; 
+                box-shadow: 0 0 3px rgba(255, 255, 255, 0.2); 
+            }
+            50% { 
+                /* Glowing state when signal is active */
+                background-color: #00ffff; 
+                box-shadow: 0 0 10px #00ffff, 0 0 15px #00ffaa; 
+            } 
+        }
+
+        /* --- Pin Container and Individual Pin Styles --- */
+
+        /* Horizontal Pins (Left/Right) */
+        .pin-side {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            /* Use space-between for denser packing */
+            justify-content: space-between; 
+            padding: 5px 0; 
+            pointer-events: none;
+        }
+
+        .left-side {
+            left: 0;
+            transform: translate(-100%, -50%);
+        }
+
+        .right-side {
+            right: 0;
+            transform: translate(100%, -50%);
+        }
+
+        /* Vertical Pins (Top/Bottom) */
+        .top-side, .bottom-side {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            display: flex;
+            flex-direction: row; 
+            justify-content: space-between;
+            padding: 0 5px; /* Less padding for more pins */
+            pointer-events: none;
+        }
+        
+        .top-side {
+            top: 0;
+            transform: translate(-50%, -100%); 
+        }
+        
+        .bottom-side {
+            bottom: 0;
+            transform: translate(-50%, 100%); 
+        }
+
+        .pin {
+            border-radius: 1px;
+            animation: pin-signal 3s infinite ease-in-out;
+            transform-origin: center;
+        }
+
+        .pin.horizontal {
+            width: 15px; /* Pin length */
+            height: 2px;
+        }
+        
+        .pin.vertical {
+            width: 2px; /* Pin width */
+            height: 15px; /* Pin length */
+        }
+        
+        /* Applying randomized animation delays for a 'busy' effect */
+        .pin:nth-child(3n) { animation-delay: 0.5s; }
+        .pin:nth-child(3n + 1) { animation-delay: 1.2s; }
+        .pin:nth-child(3n + 2) { animation-delay: 2.1s; }
+
+
+        /* Loading Bar Styling */
+        .loading-bar-container {
+            width: 300px;
+            height: 12px;
+            background-color: #2b3a4e;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+            margin-top: 30px;
+        }
+
+        .loading-bar {
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, #ff00ff, #00ffff); /* Pink to Cyan Gradient */
+            transition: width 0.3s ease-out;
+            border-radius: 6px;
+        }
 		
         body {
             font-family: 'Inter', sans-serif;
@@ -179,6 +344,55 @@
     </style>
 </head>
 <body class="relative">
+	<!-- Preloader -->
+	<div id="preloader" class="preloader">
+        <!-- Microprocessor Visualization -->
+        <div class="microprocessor shadow-xl">  
+            <!-- Inner CPU Core -->
+            <div class="cpu-core"></div>
+            <!-- Pins (Left Side - 12 pins) -->
+            <div class="pin-side left-side">
+                <div class="pin horizontal"></div><div class="pin horizontal"></div><div class="pin horizontal"></div>
+                <div class="pin horizontal"></div><div class="pin horizontal"></div><div class="pin horizontal"></div>
+                <div class="pin horizontal"></div><div class="pin horizontal"></div><div class="pin horizontal"></div>
+                <div class="pin horizontal"></div><div class="pin horizontal"></div><div class="pin horizontal"></div>
+            </div>
+            <!-- Pins (Right Side - 12 pins) -->
+            <div class="pin-side right-side">
+                <div class="pin horizontal"></div><div class="pin horizontal"></div><div class="pin horizontal"></div>
+                <div class="pin horizontal"></div><div class="pin horizontal"></div><div class="pin horizontal"></div>
+                <div class="pin horizontal"></div><div class="pin horizontal"></div><div class="pin horizontal"></div>
+                <div class="pin horizontal"></div><div class="pin horizontal"></div><div class="pin horizontal"></div>
+            </div>
+            <!-- Pins (Top Side - 10 pins) -->
+            <div class="top-side">
+                <div class="pin vertical"></div><div class="pin vertical"></div><div class="pin vertical"></div>
+                <div class="pin vertical"></div><div class="pin vertical"></div><div class="pin vertical"></div>
+                <div class="pin vertical"></div><div class="pin vertical"></div><div class="pin vertical"></div>
+                <div class="pin vertical"></div>
+            </div>
+            <!-- Pins (Bottom Side - 10 pins) -->
+            <div class="bottom-side">
+                <div class="pin vertical"></div><div class="pin vertical"></div><div class="pin vertical"></div>
+                <div class="pin vertical"></div><div class="pin vertical"></div><div class="pin vertical"></div>
+                <div class="pin vertical"></div><div class="pin vertical"></div><div class="pin vertical"></div>
+                <div class="pin vertical"></div>
+            </div>
+        </div>
+        <!-- Status Text -->
+        <div id="status-text" class="text-xl font-mono mt-4 text-gray-300">
+            <span class="text-cyan-400">INITIALIZING</span>
+            <span class="text-pink-400 ml-2">PINS...</span>
+        </div>
+        <!-- Loading Bar and Percentage -->
+        <div class="loading-bar-container">
+            <div id="loading-bar" class="loading-bar"></div>
+        </div>
+        <div id="percentage" class="text-3xl font-bold mt-4 text-cyan-400" style="text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);">
+            0%
+        </div>
+    </div>
+	
     <!-- Vanta.js Background -->
     <div id="vanta-bg" class="vanta-bg"></div>
     
@@ -916,6 +1130,73 @@
         <i data-feather="arrow-up" class="w-5 h-5"></i>
     </a>
 
+	<script>
+        // Get references to DOM elements
+        const loadingBar = document.getElementById('loading-bar');
+        const percentageText = document.getElementById('percentage');
+        const statusText = document.getElementById('status-text');
+        const preloader = document.getElementById('preloader');
+        let progress = 0;
+        const intervalDuration = 50; // Update every 50ms for smooth animation
+
+        /**
+         * Simulates the loading process from 0% to 100%.
+         */
+        function startLoadingSimulation() {
+            const loadingInterval = setInterval(() => {
+                // Determine the increment amount (faster at the start, slower near the end)
+                let increment = 1;
+                if (progress < 25) {
+                    increment = Math.floor(Math.random() * 3) + 1; // 1-3
+                } else if (progress < 70) {
+                    increment = Math.floor(Math.random() * 2) + 1; // 1-2
+                } else {
+                    increment = 1;
+                }
+                progress += increment;
+                // Ensure progress doesn't exceed 100
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(loadingInterval);
+                    onLoadingComplete();
+                }
+                // Update the UI
+                loadingBar.style.width = `${progress}%`;
+                percentageText.textContent = `${progress}%`;
+                // Update status text based on progress
+                if (progress < 30) {
+                    statusText.innerHTML = '<span class="text-cyan-400">CHECKING</span><span class="text-pink-400 ml-2"> REGISTERS...</span>';
+                } else if (progress < 60) {
+                    statusText.innerHTML = '<span class="text-cyan-400">TRANSFERRING</span><span class="text-pink-400 ml-2"> BLOCKS...</span>';
+                } else if (progress < 99) {
+                    statusText.innerHTML = '<span class="text-cyan-400">EXECUTING</span><span class="text-pink-400 ml-2"> INSTRUCTIONS...</span>';
+                } else {
+                    statusText.innerHTML = '<span class="text-green-400">LOAD</span><span class="text-yellow-400 ml-2"> COMPLETE.</span>';
+                }
+
+            }, intervalDuration);
+        }
+
+        /**
+         * Handles the final state once loading is finished.
+         */
+        function onLoadingComplete() {
+            // Optional: Wait a moment before fading out
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                // Wait for the fade-out transition to finish before setting display: none
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                    // Here you would typically load the main application content
+                    console.log("Preloader hidden. Application loaded.");
+                }, 500); // Matches the CSS transition duration
+            }, 500); // Wait 0.5s at 100%
+        }
+
+        // Start the simulation when the page loads
+        document.addEventListener('DOMContentLoaded', startLoadingSimulation);
+    </script>
+
     <script>
         // Initialize AOS
         AOS.init({
@@ -1018,4 +1299,5 @@
     </script>
 </body>
 </html>
+
 
