@@ -1099,6 +1099,20 @@
 
 
     <!-- JS -->
+	<script>
+  	// Save original console.warn
+  	const originalWarn = console.warn;
+
+  	// Silence THREE.js length warning
+  	console.warn = function(msg, ...args) {
+    if (typeof msg === 'string' && msg.includes('THREE.BufferAttribute: .length')) {
+      		return; // ignore this warning
+    	}
+    		originalWarn(msg, ...args); // log other warnings normally
+  		};
+
+	</script>
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.5/typed.min.js"></script>
 	<script>
   	new Typed(".typing-text", {
@@ -1171,8 +1185,6 @@
                 // Wait for the fade-out transition to finish before setting display: none
                 setTimeout(() => {
                     preloader.style.display = 'none';
-                    // Here you would typically load the main application content
-                    console.log("Preloader hidden. Application loaded.");
                 }, 500); // Matches the CSS transition duration
             }, 500); // Wait 0.5s at 100%
         }
@@ -1283,6 +1295,7 @@
     </script>
 </body>
 </html>
+
 
 
 
