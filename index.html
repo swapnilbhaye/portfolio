@@ -1164,13 +1164,13 @@
                 percentageText.textContent = `${progress}%`;
                 // Update status text based on progress
                 if (progress < 30) {
-                    statusText.innerHTML = '<span class="text-cyan-400">CHECKING</span><span class="text-pink-400 ml-2"> REGISTERS...</span>';
+                    statusText.innerHTML = '<span class="text-cyan-400">CHECKING</span><span class="text-pink-400 ml-2"> TARGET...</span>';
                 } else if (progress < 60) {
-                    statusText.innerHTML = '<span class="text-cyan-400">TRANSFERRING</span><span class="text-pink-400 ml-2"> BLOCKS...</span>';
+                    statusText.innerHTML = '<span class="text-cyan-400">TRANSFERRING</span><span class="text-pink-400 ml-2"> DATA...</span>';
                 } else if (progress < 99) {
-                    statusText.innerHTML = '<span class="text-cyan-400">EXECUTING</span><span class="text-pink-400 ml-2"> INSTRUCTIONS...</span>';
+                    statusText.innerHTML = '<span class="text-cyan-400">EXECUTING</span><span class="text-pink-400 ml-2"> PAYLOADS...</span>';
                 } else {
-                    statusText.innerHTML = '<span class="text-green-400">LOAD</span><span class="text-yellow-400 ml-2"> COMPLETE.</span>';
+                    statusText.innerHTML = '<span class="text-green-400">EXPLOIT</span><span class="text-yellow-400 ml-2"> COMPLETED.</span>';
                 }
 
             }, intervalDuration);
@@ -1296,6 +1296,7 @@
     </script>
 </body>
 </html>
+
 
 
 
