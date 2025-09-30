@@ -1020,20 +1020,38 @@
 	<script>
     const form = document.getElementById("contact-form");
     const statusEl = document.getElementById("form-status");
+    let timeoutId = null; // Variable to hold the timeout ID
 
     // Function to run when the hidden iframe finishes loading after form submission
     function formSubmitHandler() {
+        
+        // Clear any previous timeout if a new form is submitted quickly
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+
         // Only run if the form was actually submitted
         if (form.getAttribute('data-submitted')) {
+            // 1. Display the success message
             statusEl.textContent = "✅ Message sent successfully!";
             statusEl.style.color = "#10b981"; // Tailwind 'text-green-500' equivalent
             statusEl.className = "success text-center";
             form.reset();
             form.removeAttribute('data-submitted'); // Reset flag
-        	}
-    	}
+            
+            // 2. Set a timeout to clear the message after 10 seconds (10000 milliseconds)
+            timeoutId = setTimeout(() => {
+                statusEl.textContent = ""; // Clear the text
+                statusEl.style.color = "";  // Clear the color
+                statusEl.className = "";    // Clear the class
+            }, 10000); // 10 seconds
+        }
+    }
 
-    	form.addEventListener('submit', function() {
+    form.addEventListener('submit', function() {
+        // Clear the status text immediately before submitting a new form
+        statusEl.textContent = "";
+        
         // Set a flag and show a waiting message before submission
         form.setAttribute('data-submitted', 'true');
         statusEl.textContent = "⏳ Sending message...";
@@ -1041,7 +1059,6 @@
         statusEl.className = "text-center";
     	});
 	</script>
-
 
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-12">
@@ -1279,6 +1296,7 @@
     </script>
 </body>
 </html>
+
 
 
 
