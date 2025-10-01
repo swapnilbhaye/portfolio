@@ -1229,34 +1229,7 @@
             easing: 'ease-in-out',
             once: true
         });
-
-        // 1. Declare a global variable to hold the Vanta effect instance
-var vantaEffect;
-
-// Define your theme colors (in hexadecimal format, without '0x' in quotes for better readability in code)
-const lightThemeColors = {
-    backgroundColor: 0xf0f0f0, // Light Gray
-    color1: 0x3c446b,          // Dark Blue (for birds)
-    color2: 0x9aa9ff,          // Light Blue (for birds)
-    // ... any other common options
-};
-
-const darkThemeColors = {
-    backgroundColor: 0x1a1a2e, // Deep Space Blue (matches your body CSS)
-    color1: 0x8979e8,          // Purple
-    color2: 0x89e879,          // Green
-    // ... any other common options
-};
-
-// 2. Initialize Vanta with the correct starting theme (check localStorage or use dark as default)
-function initVanta(isDark) {
-    const options = isDark ? darkThemeColors : lightThemeColors;
-    
-    // Check if an instance already exists, destroy it before creating a new one
-    if (vantaEffect) {
-        vantaEffect.destroy();
-    }
-    
+		
     // Create the new Vanta instance and store it
     vantaEffect = VANTA.BIRDS({
         el: "#vanta-bg", // Your target element ID
@@ -1270,27 +1243,6 @@ function initVanta(isDark) {
         ...options // Spread the theme colors here
     });
 }
-
-// Check the initial theme and initialize Vanta
-var initialThemeIsDark = document.documentElement.classList.contains('dark') || (localStorage.getItem('theme') === 'dark');
-initVanta(initialThemeIsDark);
-
-        // Initialize Feather Icons
-        feather.replace();
-
-        // Mobile Menu Toggle
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            if (mobileMenu.classList.contains('hidden')) {
-                feather.replace();
-            } else {
-                feather.replace();
-            }
-        });
-
         // Close mobile menu when clicking a link
         document.querySelectorAll('#mobile-menu a').forEach(link => {
             link.addEventListener('click', () => {
@@ -1350,6 +1302,7 @@ initVanta(initialThemeIsDark);
     </script>
 </body>
 </html>
+
 
 
 
