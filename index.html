@@ -15,6 +15,35 @@
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.birds.min.js"></script>
+	<script>
+        function formSubmitHandler() {
+            // Check if the form was actually submitted (prevents triggering on initial load)
+            // Note: This relies on the form being the only thing submitted to the iframe.
+            const contactForm = document.getElementById('contact-form');
+            const successMessage = document.getElementById('contact-success-message');
+            
+            if (successMessage && contactForm) {
+                // Clear the form fields
+                contactForm.reset();
+
+                // 1. Display the success message
+                successMessage.classList.remove('hidden', 'opacity-0');
+                successMessage.classList.add('opacity-100');
+
+                // 2. Automatically hide the message after 3 seconds
+                setTimeout(() => {
+                    successMessage.classList.remove('opacity-100');
+                    successMessage.classList.add('opacity-0');
+                    
+                    // Wait for the fade-out transition before hiding completely
+                    setTimeout(() => {
+                        successMessage.classList.add('hidden');
+                    }, 500); 
+
+                }, 3000); 
+            }
+        }
+    </script>
     <style>
 
 		 body {
@@ -1296,6 +1325,7 @@
     </script>
 </body>
 </html>
+
 
 
 
