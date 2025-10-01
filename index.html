@@ -372,26 +372,6 @@
             border: 1px solid rgba(99, 102, 241, 0.5); 
         }
     </style>
-
-<!-- Dark-mode fallback CSS (applies when Tailwind dark variants aren't present) -->
-<style id="dark-fallback">
-/* Fallback dark styles if Tailwind 'dark:' variants are not available in compiled CSS */
-.dark body { background-color: #0b1220 !important; color: #e5e7eb !important; }
-.dark .bg-white { background-color: #0b1220 !important; }
-.dark .bg-gray-50 { background-color: #071226 !important; }
-.dark .bg-gray-900 { background-color: #071226 !important; }
-.dark .bg-indigo-100 { background-color: #111827 !important; }
-.dark .text-gray-800 { color: #e5e7eb !important; }
-.dark .text-gray-700 { color: #d1d5db !important; }
-.dark .text-gray-600 { color: #9ca3af !important; }
-.dark .text-gray-400 { color: #9ca3af !important; }
-.dark nav { background-color: rgba(10, 25, 47, 0.85) !important; }
-.dark footer { background-color: #071226 !important; }
-.dark .project-card, .dark .trophy, .dark .experience-card { background-color: #0b1220 !important; border-color: rgba(255,255,255,0.04) !important; box-shadow: none !important; }
-.dark .bg-indigo-600 { background-color: #4f46e5 !important; }
-.dark .bg-indigo-0 { background-color: transparent !important; }
-.dark .bg-indigo-600.text-white { background-color: #4f46e5 !important; }
-</style>
 </head>
 <body class="relative">
 	<!-- Preloader -->
@@ -465,9 +445,6 @@
                     <a href="#projects" class="nav-link text-gray-700 hover:text-indigo-600">Projects</a>
 					<a href="#certificates" class="nav-link text-gray-700 hover:text-indigo-600">Certificates</a>
                     <a href="#contact" class="nav-link text-gray-700 hover:text-indigo-600">Contact</a>   
-					<button id="theme-toggle" class="ml-4 p-2 rounded-full bg-gray-200 dark:bg-gray-700">
-					<i id="theme-toggle-icon" data-feather="moon"></i>
-					</button>
                 </div>
                 <div class="md:hidden flex items-center space-x-4">
                     <button id="menu-btn" class="text-gray-700">
@@ -489,9 +466,6 @@
             <a href="#projects" class="text-xl text-gray-700 hover:text-indigo-600">Projects</a>
 			<a href="#certificates" class="text-xl text-gray-700 hover:text-indigo-600">Certificates</a>
             <a href="#contact" class="text-xl text-gray-700 hover:text-indigo-600">Contact</a>
-			<button id="theme-toggle" class="ml-4 p-2 rounded-full bg-gray-200 dark:bg-gray-700">
-			<i id="theme-toggle-icon" data-feather="moon"></i>
-			</button>
         </div>
     </div>
 
@@ -1374,104 +1348,9 @@ initVanta(initialThemeIsDark);
             });
         });
     </script>
-
-<!-- Robust theme toggle: creates the button if missing, respects system preference, saves to localStorage -->
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  (function() {
-    function safeFeatherReplace() {
-      if (window.feather && typeof window.feather.replace === 'function') {
-        try { window.feather.replace(); } catch(e) { /* ignore */ }
-      }
-    }
-
-    function updateIcon(isDark) {
-      var iconEl = document.getElementById('theme-toggle-icon');
-      if (!iconEl) return;
-      if (window.feather && iconEl.tagName.toLowerCase() === 'i') {
-        iconEl.setAttribute('data-feather', isDark ? 'sun' : 'moon');
-        safeFeatherReplace();
-      } else {
-        // fallback to text emoji
-        iconEl.textContent = isDark ? '☀️' : '🌙';
-      }
-    }
-
-    // Determine initial theme (localStorage or system)
-    var saved = localStorage.getItem('theme');
-    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    var isDark = false;
-    if (saved === 'dark' || (!saved && prefersDark)) isDark = true;
-
-    if (isDark) document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark');
-    // ensure body classes also reflect
-    if (isDark) document.body.classList.add('dark'); else document.body.classList.remove('dark');
-
-    // Ensure toggle button exists; if not, create and append to nav
-    var btn = document.getElementById('theme-toggle');
-    if (!btn) {
-      var nav = document.querySelector('nav .max-w-7xl') || document.querySelector('nav');
-      if (nav) {
-        btn = document.createElement('button');
-        btn.id = 'theme-toggle';
-        btn.type = 'button';
-        btn.className = 'ml-4 p-2 rounded-full bg-gray-200 dark:bg-gray-700';
-        btn.setAttribute('aria-label', 'Toggle dark mode');
-        var i = document.createElement('i');
-        i.id = 'theme-toggle-icon';
-        i.setAttribute('data-feather', isDark ? 'sun' : 'moon');
-        btn.appendChild(i);
-        nav.appendChild(btn);
-        safeFeatherReplace();
-      }
-    } else {
-      // If exists, ensure it has an icon element
-      var icon = document.getElementById('theme-toggle-icon');
-      if (!icon) {
-        var i2 = document.createElement('i');
-        i2.id = 'theme-toggle-icon';
-        i2.setAttribute('data-feather', isDark ? 'sun' : 'moon');
-        btn.appendChild(i2);
-        safeFeatherReplace();
-      } else {
-        updateIcon(isDark);
-      }
-    }
-
-    // Bind click
- // Bind click
-if (btn) {
-    btn.addEventListener('click', function(e) {
-        var nowDark = document.documentElement.classList.toggle('dark');
-        document.body.classList.toggle('dark');
-        localStorage.setItem('theme', nowDark ? 'dark' : 'light');
-        updateIcon(nowDark);
-        
-        // <<< ADD THIS LINE TO UPDATE VANTA.JS THEME >>>
-        updateVantaTheme(nowDark);
-    });
-}
-
-
-// Function to dynamically update Vanta.js options
-function updateVantaTheme(isDark) {
-    if (vantaEffect && vantaEffect.setOptions) {
-        const newOptions = isDark ? darkThemeColors : lightThemeColors;
-        vantaEffect.setOptions(newOptions);
-    }
-}
-
-    // Observe changes to html.dark added externally and sync icon
-    var observer = new MutationObserver(function(mutations) {
-      var htmlIsDark = document.documentElement.classList.contains('dark');
-      updateIcon(htmlIsDark);
-    });
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-  })();
-});
-</script>
 </body>
 </html>
+
 
 
 
