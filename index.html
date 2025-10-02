@@ -327,6 +327,13 @@
          box-shadow: 0 0 15px rgba(99, 102, 241, 0.8), 0 0 30px rgba(99, 102, 241, 0.4), 0 30px 60px rgba(0,0,0,0.2);
          border: 1px solid rgba(99, 102, 241, 0.5); 
          }
+         .datetime {
+  	      font-size: 1rem;
+  	      background-color: rgba(255,255,255,0.2);
+ 	      padding: 5px 10px;
+ 	      border-radius: 8px;
+ 	      font-family: 'Digital-7', 'Courier New', monospace; /* Digital style */
+	      }
       </style>
    </head>
    <body class="relative">
@@ -417,6 +424,7 @@
                   <span class="mr-2">SWAPNIL</span>
                   <span class="bg-indigo-600 text-white px-2 py-1 rounded-md">BHAYE</span>
                   <img src="https://raw.githubusercontent.com/swapnilbhaye/portfolio/refs/heads/main/assets/Flag.gif" alt="India Flag" width="64" height="64" class="ml-2"/>
+                  <div id="datetime" class="datetime"></div>
                   </a>
                </div>
                <div class="hidden md:flex items-center space-x-6">
@@ -1289,7 +1297,27 @@
       <script>
          feather.replace();
       </script>
+            <script>
+         feather.replace();
+      </script>
+      
+      <script>
+      function updateDateTime() {
+      const now = new Date();
+      const options = { 
+      weekday: 'short', 
+      year: 'numeric', 
+      month: 'short', 
+      day: 'numeric' 
+      };
+      const date = now.toLocaleDateString('en-US', options);
+      const time = now.toLocaleTimeString('en-US', { hour12: false });
+      document.getElementById('datetime').textContent = `${date} | ${time}`;
+      }
+      // Update every second
+      setInterval(updateDateTime, 1000);
+      // Initial call
+      updateDateTime();
+      </script>
    </body>
 </html>
-
-
