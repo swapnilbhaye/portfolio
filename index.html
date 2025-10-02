@@ -1229,25 +1229,6 @@
             once: true
         });
 
-        // Initialize Vanta.js
-        VANTA.BIRDS({
- 		el: "#vanta-bg",
-  		mouseControls: true,
- 	 	touchControls: true,
-  		gyroControls: false,
-  		minHeight: 200.00,
-  		minWidth: 200.00,
-  		scale: 1.00,
-  		scaleMobile: 1.00,
-  		backgroundColor: 0xffffff,
-  		birdSize: 1.50,
-  		wingSpan: 14.00,
-  		separation: 67.00,
-  		alignment: 42.00,
-  		cohesion: 41.00,
-  		quantity: 3.00
-		})
-
         // Initialize Feather Icons
         feather.replace();
 
@@ -1325,6 +1306,32 @@
   feather.replace();
 </script>
 
+<script>
+VANTA.BIRDS({
+  el: "#vanta-bg",
+  mouseControls: true,
+  touchControls: true,
+  gyroControls: false,   // disable device orientation (less GPU)
+  minHeight: 200.00,
+  minWidth: 200.00,
+  scale: 1.00,
+  scaleMobile: 1.00,
+  
+  // Performance tweaks
+  backgroundColor: 0x1a1a2e,   // your dark theme color
+  backgroundAlpha: 1.0,        // solid background (no blending overhead)
+  color1: 0x00ffff,            // cyan birds
+  color2: 0xff00ff,            // magenta accent
+  birdSize: 1.20,              // slightly bigger (less total rendering)
+  wingSpan: 15.0,
+  speedLimit: 3.0,
+  separation: 35.0,
+  alignment: 35.0,
+  cohesion: 20.0,
+  quantity: 2.0                // fewer birds (default ~3–4, reduces GPU calls)
+})
+</script>
 </body>
 </html>
+
 
