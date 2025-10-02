@@ -1,4 +1,4 @@
-# Swapnil Bhaye – Electronics Engineer & Aircraft Technician
+# <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="India Flag" width="32" height="32" /> Swapnil Bhaye – Electronics Engineer & Aircraft Technician 
 
 Welcome to my GitHub profile! I'm Swapnil Bhaye, a versatile Electronics Engineer with a passion for machine maintenance, troubleshooting, and reverse engineering. Currently serving as an Aircraft Technician – Electrical at AI Engineering Services Limited, I bring a diverse skill set and a commitment to continuous learning.
 
@@ -14,13 +14,13 @@ Welcome to my GitHub profile! I'm Swapnil Bhaye, a versatile Electronics Enginee
 
 ## 🎓 Education
 
-- **Bachelor of Engineering** in (Electronics Engineering) 
+- **Bachelor of Engineering** in Electronics Engineering 
   *Shah And Anchor Kutchhi Engineering College, Mumbai University (2014–2017)*
 
-- **Diploma** in (Industrial Electronics)  
+- **Diploma** in Industrial Electronics  
   *Vidya Prasarak Mandal's Polytechnic, MSBTE (2011–2014)*
 
-- **S.S.C** (General Education)  
+- **S.S.C** in General Education  
   *Nutan Vidya Mandir, MSBSE (2001–2011)*
 
 ## 💼 Professional Experience
