@@ -14,13 +14,13 @@ Welcome to my GitHub profile! I'm Swapnil Bhaye, a versatile Electronics Enginee
 
 ## 🎓 Education
 
-- **Bachelor of Engineering** in Electronics Engineering  
+- **Bachelor of Engineering** in (Electronics Engineering) 
   *Shah And Anchor Kutchhi Engineering College, Mumbai University (2014–2017)*
 
-- **Diploma** in Industrial Electronics  
+- **Diploma** in (Industrial Electronics)  
   *Vidya Prasarak Mandal's Polytechnic, MSBTE (2011–2014)*
 
-- **S.S.C.** (General Education)  
+- **S.S.C** (General Education)  
   *Nutan Vidya Mandir, MSBSE (2001–2011)*
 
 ## 💼 Professional Experience
